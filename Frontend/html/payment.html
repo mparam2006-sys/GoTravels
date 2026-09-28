@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payment - GoTravels</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .booking-info {
+            background: #f1f3f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .booking-info p {
+            margin: 10px 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #ed3340;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #d92735;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Payment</h1>
+
+        <div class="booking-info">
+
+            <h2>Booking Summary</h2>
+
+            <p>
+                <strong>Booking ID:</strong>
+                <span id="booking_id">Loading...</span>
+            </p>
+
+            <p>
+                <strong>Total Amount:</strong>
+                ₹<span id="amount">Loading...</span>
+            </p>
+
+        </div>
+
+        <form id="paymentForm">
+
+            <label for="payment_method">
+                Payment Method
+            </label>
+
+            <select id="payment_method" required>
+
+                <option value="">
+                    Select Payment Method
+                </option>
+
+                <option value="UPI">
+                    UPI
+                </option>
+
+                <option value="CARD">
+                    Card
+                </option>
+
+                <option value="NET_BANKING">
+                    Net Banking
+                </option>
+
+                <option value="WALLET">
+                    Wallet
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Pay Now
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+    </div>
+
+    <script>
+
+        const bookingId = localStorage.getItem("bookingId");
+
+        const amount = localStorage.getItem("bookingAmount");
+
+        document.getElementById("booking_id").textContent =
+            bookingId || "Not available";
+
+        document.getElementById("amount").textContent =
+            amount || "Not available";
+
+
+        document.getElementById("paymentForm").addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                if (!bookingId) {
+
+                    alert("Booking ID is missing.");
+
+                    return;
+                }
+
+                const paymentMethod =
+                    document.getElementById("payment_method").value;
+
+                if (!paymentMethod) {
+
+                    alert("Please select a payment method.");
+
+                    return;
+                }
+
+
+                try {
+
+                    const url =
+                        `http://127.0.0.1:8000/payment/${bookingId}` +
+                        `?payment_method=${encodeURIComponent(paymentMethod)}`;
+
+
+                    const response = await fetch(url, {
+                        method: "POST"
+                    });
+
+
+                    const data = await response.json();
+
+
+                    console.log(data);
+
+
+                    if (!response.ok) {
+
+                        alert(data.detail || "Payment failed.");
+
+                        return;
+                    }
+
+
+                    localStorage.setItem(
+                        "paymentResult",
+                        JSON.stringify(data)
+                    );
+
+
+                    window.location.href = "confirmation.html";
+
+                }
+                catch (error) {
+
+                    console.error(error);
+
+                    alert(
+                        "Could not connect to GoTravels server."
+                    );
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

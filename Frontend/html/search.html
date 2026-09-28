@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - GoTravels</title>
+</head>
+
+<body>
+
+    <h1>Search Travel</h1>
+
+    <form>
+        <label>From:</label>
+        <input type="text" id="from_city" placeholder="Delhi">
+
+        <br><br>
+
+        <label>To:</label>
+        <input type="text" id="to_city" placeholder="Mumbai">
+
+        <br><br>
+
+        <label>Date:</label>
+        <input type="date" id="travel_date">
+
+        <br><br>
+
+        <label>Travel Type:</label>
+        <select id="service_type">
+            <option value="">All</option>
+            <option value="FLIGHT">Flight</option>
+            <option value="TRAIN">Train</option>
+            <option value="BUS">Bus</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Search</button>
+    </form>
+<script src="/frontend/js/search.js"></script>
+</body>
+</html>

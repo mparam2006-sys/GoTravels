@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Confirmation - GoTravels</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .details {
+            margin-top: 30px;
+            background: #f1f3f5;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .details p {
+            font-size: 17px;
+            margin: 12px 0;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: #ef3340;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .home-button:hover {
+            background: #d92735;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="success">✓</div>
+
+        <h1>Booking Confirmed!</h1>
+
+        <p>Your travel booking has been successfully completed.</p>
+
+        <div class="details">
+
+            <h2>Booking Details</h2>
+
+            <p>
+                <strong>Booking ID:</strong>
+                <span id="bookingId">Loading...</span>
+            </p>
+
+            <p>
+                <strong>Total Amount:</strong>
+                ₹<span id="totalAmount">Loading...</span>
+            </p>
+
+            <p>
+                <strong>Payment Status:</strong>
+                <span id="paymentStatus">Loading...</span>
+            </p>
+
+        </div>
+
+        <a href="index.html" class="home-button">
+            Back to Home
+        </a>
+
+    </div>
+
+
+    <script>
+
+        const bookingData = JSON.parse(
+            localStorage.getItem("bookingData")
+        );
+
+        const paymentData = JSON.parse(
+            localStorage.getItem("paymentData")
+        );
+
+
+        if (bookingData) {
+
+            document.getElementById("bookingId").textContent =
+                bookingData.booking_id || "Not available";
+
+            document.getElementById("totalAmount").textContent =
+                bookingData.total_amount || "Not available";
+        }
+
+
+        if (paymentData) {
+
+            document.getElementById("paymentStatus").textContent =
+                paymentData.payment_status ||
+                paymentData.status ||
+                "Successful";
+
+        } else {
+
+            document.getElementById("paymentStatus").textContent =
+                "Successful";
+        }
+
+    </script>
+
+</body>
+
+</html>

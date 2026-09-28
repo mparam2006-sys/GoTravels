@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Travel Results - GoTravels</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background: #f5f7fa;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #results {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .travel-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .travel-card h2 {
+            margin-top: 0;
+        }
+
+        .travel-card p {
+            margin: 8px 0;
+        }
+
+        .price {
+            font-size: 22px;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .book-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #e63946;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .book-btn:hover {
+            background: #c92f3b;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Available Travel Options</h1>
+
+    <div id="results">
+        <p class="no-results">Loading results...</p>
+    </div>
+
+    <script src="/frontend/js/results.js"></script>
+
+</body>
+</html>
